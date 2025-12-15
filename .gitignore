@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Pipenv
+Pipfile.lock
+
+# PyInstaller
+build/
+dist/
+*.spec.bak
+*.manifest
+*.exe
+
+# Claude
+.claude
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Application specific
+models/
+*.log
+scan_results_*.txt
+
+# NudeNet model cache
+.NudeNet/
+
+# Test images (if any)
+test_images/
+sample_images/
