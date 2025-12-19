@@ -3,6 +3,7 @@
     x:Class="Inntinnsic.Views.ResultsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Inntinnsic.Views"
     Title="Scan Results"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
 
@@ -101,10 +102,9 @@
 
                     <!-- Image Preview Area -->
                     <Grid Grid.Row="1" BackgroundColor="#0F172A">
-                        <Image x:Name="PreviewImage"
-                               Aspect="AspectFit"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Fill"/>
+                        <views:DetectionImageView x:Name="PreviewImage"
+                                                   HorizontalOptions="Fill"
+                                                   VerticalOptions="Fill"/>
 
                         <!-- Placeholder when no image selected -->
                         <Label x:Name="PreviewPlaceholderLabel"

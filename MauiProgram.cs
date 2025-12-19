@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace Inntinnsic
 {
@@ -8,6 +9,7 @@ namespace Inntinnsic
         {
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App, MainWindow, MainPage>()
+                   .UseSkiaSharp()
                    .ConfigureFonts(fonts =>
                    {
                        fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

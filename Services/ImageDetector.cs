@@ -18,6 +18,7 @@ namespace Inntinnsic.Services
         private readonly InferenceSession _session;
         private readonly float _threshold;
         private readonly string _inputName;
+        private readonly UserSettings _settings;
         private bool _disposed;
 
         // NudeNet model input dimensions
@@ -48,17 +49,18 @@ namespace Inntinnsic.Services
             "BUTTOCKS_COVERED"
         };
 
-        private ImageDetector(InferenceSession session, float threshold, string inputName)
+        private ImageDetector(InferenceSession session, float threshold, string inputName, UserSettings settings)
         {
             _session = session;
             _threshold = threshold;
             _inputName = inputName;
+            _settings = settings;
         }
 
         /// <summary>
         /// Create and initialize ImageDetector asynchronously (loads model on background thread)
         /// </summary>
-        public static async Task<ImageDetector> CreateAsync(float threshold = Config.DetectionThreshold)
+        public static async Task<ImageDetector> CreateAsync()
         {
             // Ensure model directory exists
             var modelDir = Path.GetDirectoryName(Config.ModelPath);
@@ -96,7 +98,10 @@ namespace Inntinnsic.Services
                 return (sess, actualInputName);
             });
 
-            return new ImageDetector(session, threshold, inputName);
+            // Load user settings
+            var settings = UserSettings.Load();
+
+            return new ImageDetector(session, settings.DetectionSensitivity, inputName, settings);
         }
 
         /// <summary>
@@ -132,8 +137,11 @@ namespace Inntinnsic.Services
 
                 // Post-process results
                 result.Detections = PostprocessOutputs(outputs);
+
+                // Only flag if image contains enabled categories (excluding silently disabled)
                 result.IsFlagged = result.Detections.Any(d =>
-                    Config.FlaggedCategories.Contains(d.Category) &&
+                    !Config.SilentlyDisabledCategories.Contains(d.Category) &&
+                    _settings.FlaggedCategories.Contains(d.Category) &&
                     d.Confidence >= _threshold);
 
                 // Debug: Log flagged images

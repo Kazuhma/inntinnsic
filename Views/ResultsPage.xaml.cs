@@ -115,12 +115,13 @@ namespace Inntinnsic.Views
             var filename = System.IO.Path.GetFileName(result.FilePath);
             PreviewFilenameLabel.Text = filename;
 
-            // Load and display image
+            // Load and display image with bounding boxes
             try
             {
                 if (File.Exists(result.FilePath))
                 {
-                    PreviewImage.Source = ImageSource.FromFile(result.FilePath);
+                    PreviewImage.ImagePath = result.FilePath;
+                    PreviewImage.Detections = result.Detections;
                     PreviewImage.IsVisible = true;
                     PreviewPlaceholderLabel.IsVisible = false;
 

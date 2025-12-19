@@ -23,6 +23,15 @@ namespace Inntinnsic
         // 0.6 is a balanced default - increase for fewer false positives
         public const float DetectionThreshold = 0.6f;
 
+        // Categories that are silently disabled (not used for flagging or display)
+        public static readonly HashSet<string> SilentlyDisabledCategories = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "ARMPITS_EXPOSED",
+            "BELLY_EXPOSED",
+            "FACE_FEMALE",
+            "FACE_MALE"
+        };
+
         // Categories to flag (NudeNet provides these classifications)
         public static readonly HashSet<string> FlaggedCategories = new(StringComparer.OrdinalIgnoreCase)
         {
