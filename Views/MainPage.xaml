@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Inntinnsic.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Inntinnsic"
+    Title="Inntinnsic"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Spacing="10" Padding="30">
+
+                <!-- Header -->
+                <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Padding="30"
+                        StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+
+                    <HorizontalStackLayout Spacing="15">
+                        <Label Text="🛡️"
+                               FontSize="40"/>
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="Image Safety Checker"
+                                   FontSize="28"
+                                   FontAttributes="Bold"/>
+                            <Label Text="Scan your computer for potentially inappropriate images"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextMuted}"/>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Action Buttons -->
+                <Grid ColumnDefinitions="*, *, 50" ColumnSpacing="12" Padding="0,5,0,5">
+                    <!-- Add Folder - Secondary Style with Border -->
+                    <Button Grid.Column="0"
+                            x:Name="AddFolderButton"
+                            Text="📁 Add Folder"
+                            BackgroundColor="#1E293B"
+                            TextColor="White"
+                            BorderColor="#334155"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            HeightRequest="44"
+                            Clicked="OnAddFolderClicked"/>
+                    <!-- Quick Scan - Primary/Hero Button -->
+                    <Button Grid.Column="1"
+                            x:Name="QuickScanButton"
+                            Text="⚡ Quick Scan"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="44"
+                            FontAttributes="Bold"
+                            Clicked="OnQuickScanClicked"/>
+                    <!-- Settings - Icon Only -->
+                    <Button Grid.Column="2"
+                            x:Name="SettingsButton"
+                            Text="⚙️"
+                            BackgroundColor="#1E293B"
+                            TextColor="#9CA3AF"
+                            BorderColor="#334155"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            WidthRequest="48"
+                            HeightRequest="44"
+                            Clicked="OnSettingsClicked"/>
+                </Grid>
+
+                <!-- Selected Folders List -->
+                <Border x:Name="FolderListBorder"
+                        BackgroundColor="#1E293B"
+                        Stroke="#334155"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,6"
+                        HeightRequest="210">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+
+                    <Grid RowDefinitions="Auto, *">
+                        <!-- Header Row -->
+                        <Grid Grid.Row="0"
+                              ColumnDefinitions="*, Auto"
+                              Padding="16,12"
+                              BackgroundColor="#1E293B">
+                            <Label Text="Selected Folders"
+                                   TextColor="White"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"/>
+                            <Button Grid.Column="1"
+                                    x:Name="ClearAllButton"
+                                    Text="Clear All"
+                                    BackgroundColor="#EF4444"
+                                    TextColor="White"
+                                    CornerRadius="6"
+                                    HeightRequest="32"
+                                    Padding="12,0"
+                                    FontSize="12"
+                                    Clicked="OnClearFoldersClicked"/>
+                        </Grid>
+
+                        <!-- Folder List with ScrollView and Placeholder -->
+                        <Grid Grid.Row="1">
+                            <ScrollView Padding="8,0,8,8">
+                                <VerticalStackLayout x:Name="FolderListStack" Spacing="6"/>
+                            </ScrollView>
+                            <!-- Placeholder text when no folders selected -->
+                            <Label x:Name="FolderPlaceholderLabel"
+                                   Text="No folders selected"
+                                   TextColor="#94A3B8"
+                                   FontSize="13"
+                                   Margin="15,0,0,0"
+                                   IsVisible="True"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- Scan Status Card -->
+                <Border BackgroundColor="#1E293B"
+                        Stroke="#334155"
+                        Padding="16"
+                        Margin="0,6"
+                        HeightRequest="170">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+
+                    <Grid RowDefinitions="Auto, Auto, Auto">
+                        <!-- Row 0: Title + View Results Button -->
+                        <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,12">
+                            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                                <Label x:Name="StatusTitleLabel"
+                                       Text="Ready to Scan"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       FontAttributes="Bold"/>
+                                <Label x:Name="StatusMessageLabel"
+                                       Text="Select folders above to begin scanning"
+                                       TextColor="#94A3B8"
+                                       FontSize="13"
+                                       Margin="0,4,0,0"/>
+                            </VerticalStackLayout>
+                            <!-- View Results - Secondary Button, Same Size as Start Scan -->
+                            <Button Grid.Column="1"
+                                    x:Name="ViewResultsButton"
+                                    Text="⦿ View Results"
+                                    BackgroundColor="#1E293B"
+                                    TextColor="White"
+                                    FontSize="15"
+                                    FontAttributes="Bold"
+                                    CornerRadius="8"
+                                    BorderColor="#334155"
+                                    BorderWidth="1"
+                                    WidthRequest="160"
+                                    HeightRequest="48"
+                                    Margin="0,2,0,0"
+                                    IsEnabled="False"
+                                    Clicked="OnViewResultsClicked"/>
+                        </Grid>
+
+                        <!-- Row 1: Progress Bar -->
+                        <ProgressBar Grid.Row="1"
+                                     x:Name="ScanProgressBar"
+                                     Progress="0"
+                                     ProgressColor="#3B82F6"
+                                     BackgroundColor="#334155"
+                                     HeightRequest="6"
+                                     VerticalOptions="Center"/>
+
+                        <!-- Row 2: Start/Stop Scan Button -->
+                        <Button Grid.Row="2"
+                                x:Name="StartScanButton"
+                                Text="▶ Start Scan"
+                                BackgroundColor="{StaticResource Primary}"
+                                TextColor="White"
+                                CornerRadius="8"
+                                HeightRequest="48"
+                                WidthRequest="160"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                HorizontalOptions="End"
+                                Margin="0,10,0,0"
+                                Clicked="OnStartScanClicked"/>
+                    </Grid>
+                </Border>
+
+                <!-- Stats Cards -->
+                <Grid ColumnDefinitions="*, *, *" ColumnSpacing="16" Padding="0,6">
+                    <!-- Images Scanned -->
+                    <Border Grid.Column="0"
+                            BackgroundColor="#3B82F6"
+                            Padding="16,20"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout>
+                            <Label x:Name="ScannedCountLabel"
+                                   Text="0"
+                                   FontSize="32"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Images Scanned"
+                                   FontSize="12"
+                                   TextColor="#BFDBFE"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Flagged -->
+                    <Border Grid.Column="1"
+                            BackgroundColor="#F59E0B"
+                            Padding="16,20"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout>
+                            <Label x:Name="FlaggedCountLabel"
+                                   Text="0"
+                                   FontSize="32"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Flagged"
+                                   FontSize="12"
+                                   TextColor="#FEF3C7"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Status -->
+                    <Border Grid.Column="2"
+                            BackgroundColor="#10B981"
+                            Padding="16,20"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout>
+                            <Label x:Name="StatusLabel"
+                                   Text="Ready"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Status"
+                                   FontSize="12"
+                                   TextColor="#D1FAE5"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

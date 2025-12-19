@@ -1,0 +1,104 @@
+using System;
+using Inntinnsic.Models;
+using Microsoft.Maui.Controls;
+
+namespace Inntinnsic.Views
+{
+    public partial class SettingsPage : ContentPage
+    {
+        private UserSettings _settings = new UserSettings();
+
+        public SettingsPage()
+        {
+            InitializeComponent();
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            _settings = UserSettings.Load();
+
+            // Load detection sensitivity
+            SensitivitySlider.Value = _settings.DetectionSensitivity;
+            SensitivityValueLabel.Text = $"Current: {_settings.DetectionSensitivity:F2}";
+
+            // Load flagged categories
+            FemaleBreastExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("FEMALE_BREAST_EXPOSED");
+            FemaleGenitaliaExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("FEMALE_GENITALIA_EXPOSED");
+            MaleGenitaliaExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("MALE_GENITALIA_EXPOSED");
+            AnusExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("ANUS_EXPOSED");
+            ButtocksExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("BUTTOCKS_EXPOSED");
+            BellyExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("BELLY_EXPOSED");
+
+            // Load other settings
+            AutoExportCheck.IsChecked = _settings.AutoExportResults;
+            SkipHiddenCheck.IsChecked = _settings.SkipHiddenFiles;
+            ConfirmDeletionsCheck.IsChecked = _settings.ConfirmFileDeletions;
+        }
+
+        private void OnSensitivityChanged(object sender, ValueChangedEventArgs e)
+        {
+            SensitivityValueLabel.Text = $"Current: {e.NewValue:F2}";
+        }
+
+        private async void OnSaveClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Update settings from UI
+                _settings.DetectionSensitivity = (float)SensitivitySlider.Value;
+
+                // Update flagged categories
+                _settings.FlaggedCategories.Clear();
+
+                if (FemaleBreastExposedCheck.IsChecked)
+                    _settings.FlaggedCategories.Add("FEMALE_BREAST_EXPOSED");
+                if (FemaleGenitaliaExposedCheck.IsChecked)
+                    _settings.FlaggedCategories.Add("FEMALE_GENITALIA_EXPOSED");
+                if (MaleGenitaliaExposedCheck.IsChecked)
+                    _settings.FlaggedCategories.Add("MALE_GENITALIA_EXPOSED");
+                if (AnusExposedCheck.IsChecked)
+                    _settings.FlaggedCategories.Add("ANUS_EXPOSED");
+                if (ButtocksExposedCheck.IsChecked)
+                    _settings.FlaggedCategories.Add("BUTTOCKS_EXPOSED");
+                if (BellyExposedCheck.IsChecked)
+                    _settings.FlaggedCategories.Add("BELLY_EXPOSED");
+
+                // Update other settings
+                _settings.AutoExportResults = AutoExportCheck.IsChecked;
+                _settings.SkipHiddenFiles = SkipHiddenCheck.IsChecked;
+                _settings.ConfirmFileDeletions = ConfirmDeletionsCheck.IsChecked;
+
+                // Save to file
+                _settings.Save();
+
+                await Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to save settings: {ex.Message}", "OK");
+            }
+        }
+
+        private void OnResetClicked(object sender, EventArgs e)
+        {
+            // Reset to default settings
+            _settings = new UserSettings();
+
+            // Update UI directly with defaults (don't load from file)
+            SensitivitySlider.Value = _settings.DetectionSensitivity;
+            SensitivityValueLabel.Text = $"Current: {_settings.DetectionSensitivity:F2}";
+
+            FemaleBreastExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("FEMALE_BREAST_EXPOSED");
+            FemaleGenitaliaExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("FEMALE_GENITALIA_EXPOSED");
+            MaleGenitaliaExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("MALE_GENITALIA_EXPOSED");
+            AnusExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("ANUS_EXPOSED");
+            ButtocksExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("BUTTOCKS_EXPOSED");
+            BellyExposedCheck.IsChecked = _settings.FlaggedCategories.Contains("BELLY_EXPOSED");
+
+            AutoExportCheck.IsChecked = _settings.AutoExportResults;
+            SkipHiddenCheck.IsChecked = _settings.SkipHiddenFiles;
+            ConfirmDeletionsCheck.IsChecked = _settings.ConfirmFileDeletions;
+        }
+    }
+}

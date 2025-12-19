@@ -1,0 +1,11 @@
+<Solution>
+    <Folder Name="/Solution Items/">
+        <File Path="Directory.Packages.props" />
+    </Folder>
+    <Project Path="Inntinnsic.csproj">
+        <Deploy />
+    </Project>
+    <Properties Name="Visual Studio">
+        <Property Name="OpenWith" Value="17" />
+    </Properties>
+</Solution>

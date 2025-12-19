@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Inntinnsic.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Settings"
+    BackgroundColor="#0F172A">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="16">
+
+                <!-- Detection Sensitivity -->
+                <Border BackgroundColor="#1E293B"
+                        Stroke="#334155"
+                        StrokeThickness="1"
+                        Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Detection Sensitivity"
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Label Text="Higher values = more strict detection (fewer false positives)"
+                               TextColor="#94A3B8"
+                               FontSize="13"/>
+
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12" Margin="0,8,0,0">
+                            <Label Grid.Column="0"
+                                   Text="Low"
+                                   TextColor="#64748B"
+                                   FontSize="12"
+                                   VerticalOptions="Center"/>
+                            <Slider Grid.Column="1"
+                                    x:Name="SensitivitySlider"
+                                    Minimum="0.3"
+                                    Maximum="0.9"
+                                    Value="0.6"
+                                    ValueChanged="OnSensitivityChanged"
+                                    ThumbColor="#3B82F6"
+                                    MinimumTrackColor="#3B82F6"
+                                    MaximumTrackColor="#475569"/>
+                            <Label Grid.Column="2"
+                                   Text="High"
+                                   TextColor="#64748B"
+                                   FontSize="12"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+
+                        <Label x:Name="SensitivityValueLabel"
+                               Text="Current: 0.60"
+                               FontSize="14"
+                               TextColor="#60A5FA"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Content to Flag -->
+                <Border BackgroundColor="#1E293B"
+                        Stroke="#334155"
+                        StrokeThickness="1"
+                        Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Content to Flag"
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Label Text="Select which content types should trigger a flag"
+                               TextColor="#94A3B8"
+                               FontSize="13"/>
+
+                        <!-- 3-column grid for checkboxes -->
+                        <Grid ColumnDefinitions="*, *, *"
+                              RowDefinitions="Auto, Auto"
+                              ColumnSpacing="12"
+                              RowSpacing="8"
+                              Margin="0,8,0,0">
+
+                            <!-- Row 0: Female Breast | Female Genitalia | Male Genitalia -->
+                            <Border Grid.Row="0" Grid.Column="0"
+                                    BackgroundColor="#0F172A"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    Padding="12,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                    <CheckBox x:Name="FemaleBreastExposedCheck"
+                                              Grid.Column="0"
+                                              IsChecked="True"
+                                              Color="#3B82F6"
+                                              VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="Female Breast Exposed"
+                                           TextColor="#E2E8F0"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="13"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="0" Grid.Column="1"
+                                    BackgroundColor="#0F172A"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    Padding="12,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                    <CheckBox x:Name="FemaleGenitaliaExposedCheck"
+                                              Grid.Column="0"
+                                              IsChecked="True"
+                                              Color="#3B82F6"
+                                              VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="Female Genitalia Exposed"
+                                           TextColor="#E2E8F0"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="13"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="0" Grid.Column="2"
+                                    BackgroundColor="#0F172A"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    Padding="12,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                    <CheckBox x:Name="MaleGenitaliaExposedCheck"
+                                              Grid.Column="0"
+                                              IsChecked="True"
+                                              Color="#3B82F6"
+                                              VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="Male Genitalia Exposed"
+                                           TextColor="#E2E8F0"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="13"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Row 1: Anus Exposed | Buttocks Exposed | Belly Exposed -->
+                            <Border Grid.Row="1" Grid.Column="0"
+                                    BackgroundColor="#0F172A"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    Padding="12,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                    <CheckBox x:Name="AnusExposedCheck"
+                                              Grid.Column="0"
+                                              IsChecked="True"
+                                              Color="#3B82F6"
+                                              VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="Anus Exposed"
+                                           TextColor="#E2E8F0"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="13"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="1" Grid.Column="1"
+                                    BackgroundColor="#0F172A"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    Padding="12,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                    <CheckBox x:Name="ButtocksExposedCheck"
+                                              Grid.Column="0"
+                                              IsChecked="True"
+                                              Color="#3B82F6"
+                                              VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="Buttocks Exposed"
+                                           TextColor="#E2E8F0"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="13"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="1" Grid.Column="2"
+                                    BackgroundColor="#0F172A"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    Padding="12,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                    <CheckBox x:Name="BellyExposedCheck"
+                                              Grid.Column="0"
+                                              IsChecked="False"
+                                              Color="#3B82F6"
+                                              VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="Belly Exposed"
+                                           TextColor="#E2E8F0"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           FontSize="13"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Scan Options -->
+                <Border BackgroundColor="#1E293B"
+                        Stroke="#334155"
+                        StrokeThickness="1"
+                        Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="1">
+                        <Label Text="Scan Options"
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               Margin="0,0,0,12"/>
+
+                        <!-- Option 1: Auto Export Results -->
+                        <Grid ColumnDefinitions="Auto, *" Padding="0,8">
+                            <CheckBox Grid.Column="0"
+                                      x:Name="AutoExportCheck"
+                                      IsChecked="False"
+                                      Color="#3B82F6"
+                                      VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" Margin="8,0,0,0">
+                                <Label Text="Auto Export Results"
+                                       TextColor="White"
+                                       FontSize="14"/>
+                                <Label Text="Automatically save scan results to a file"
+                                       TextColor="#64748B"
+                                       FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#334155" Margin="0,4"/>
+
+                        <!-- Option 2: Skip Hidden Files -->
+                        <Grid ColumnDefinitions="Auto, *" Padding="0,8">
+                            <CheckBox Grid.Column="0"
+                                      x:Name="SkipHiddenCheck"
+                                      IsChecked="True"
+                                      Color="#3B82F6"
+                                      VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" Margin="8,0,0,0">
+                                <Label Text="Skip Hidden Files"
+                                       TextColor="White"
+                                       FontSize="14"/>
+                                <Label Text="Don't scan files with hidden attribute"
+                                       TextColor="#64748B"
+                                       FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#334155" Margin="0,4"/>
+
+                        <!-- Option 3: Confirm File Deletions -->
+                        <Grid ColumnDefinitions="Auto, *" Padding="0,8">
+                            <CheckBox Grid.Column="0"
+                                      x:Name="ConfirmDeletionsCheck"
+                                      IsChecked="True"
+                                      Color="#3B82F6"
+                                      VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" Margin="8,0,0,0">
+                                <Label Text="Confirm File Deletions"
+                                       TextColor="White"
+                                       FontSize="14"/>
+                                <Label Text="Ask for confirmation before deleting files"
+                                       TextColor="#64748B"
+                                       FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Action Buttons -->
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="15" Margin="0,8,0,20">
+                    <Button Grid.Column="0"
+                            Text="Reset to Defaults"
+                            BackgroundColor="#374151"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="48"
+                            Clicked="OnResetClicked"/>
+                    <Button Grid.Column="1"
+                            Text="Save Settings"
+                            BackgroundColor="#3B82F6"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="48"
+                            FontAttributes="Bold"
+                            Clicked="OnSaveClicked"/>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

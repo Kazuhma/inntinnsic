@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Inntinnsic.Views.ResultsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Scan Results"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="*, *" ColumnSpacing="20" Padding="20">
+
+            <!-- Left Column: Results List -->
+            <ScrollView Grid.Column="0">
+                <VerticalStackLayout Spacing="15">
+                    <!-- Header -->
+                    <Label Text="📋 Scan Results"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Start"
+                           Margin="0,0,0,5"/>
+
+                    <!-- Results Summary -->
+                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            Padding="15"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+
+                        <Label x:Name="SummaryLabel"
+                               Text="Found 0 flagged images"
+                               FontSize="14"
+                               FontAttributes="Bold"/>
+                    </Border>
+
+                    <!-- Results List -->
+                    <VerticalStackLayout x:Name="ResultsListStack" Spacing="10"/>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Right Column: Image Preview -->
+            <Border Grid.Column="1"
+                    BackgroundColor="#1E293B"
+                    Stroke="#334155"
+                    StrokeThickness="1"
+                    Padding="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+
+                <Grid RowDefinitions="Auto, *">
+                    <!-- Preview Header with Filename and Buttons -->
+                    <Grid Grid.Row="0"
+                          Padding="15"
+                          BackgroundColor="#1E293B"
+                          ColumnDefinitions="*, Auto">
+                        <Label x:Name="PreviewFilenameLabel"
+                               Grid.Column="0"
+                               Text="Select an image to preview"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               VerticalOptions="Center"
+                               LineBreakMode="MiddleTruncation"/>
+
+                        <!-- Action Buttons -->
+                        <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                            <Button x:Name="PreviewOpenFolderButton"
+                                    Text="📂"
+                                    FontSize="16"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#3B82F6"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    CornerRadius="6"
+                                    IsVisible="False"
+                                    Clicked="OnPreviewOpenFolderClicked"/>
+                            <Button x:Name="PreviewDeleteButton"
+                                    Text="🗑️"
+                                    FontSize="16"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#EF4444"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    CornerRadius="6"
+                                    IsVisible="False"
+                                    Clicked="OnPreviewDeleteClicked"/>
+                            <Button x:Name="PreviewIgnoreButton"
+                                    Text="✕"
+                                    FontSize="16"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#9CA3AF"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    CornerRadius="6"
+                                    IsVisible="False"
+                                    Clicked="OnPreviewIgnoreClicked"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <!-- Image Preview Area -->
+                    <Grid Grid.Row="1" BackgroundColor="#0F172A">
+                        <Image x:Name="PreviewImage"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill"/>
+
+                        <!-- Placeholder when no image selected -->
+                        <Label x:Name="PreviewPlaceholderLabel"
+                               Text="Select an image from the list to preview"
+                               TextColor="#64748B"
+                               FontSize="16"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               IsVisible="True"/>
+                    </Grid>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
