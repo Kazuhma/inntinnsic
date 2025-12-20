@@ -12,7 +12,79 @@ namespace Inntinnsic.Views
         {
             InitializeComponent();
             LoadSettings();
+            SetupKeyboardHandling();
         }
+
+        private void SetupKeyboardHandling()
+        {
+#if WINDOWS
+            this.Loaded += OnLoaded;
+#endif
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+#if WINDOWS
+            AttachKeyboardHandler();
+#endif
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+#if WINDOWS
+            DetachKeyboardHandler();
+#endif
+        }
+
+#if WINDOWS
+        private void OnLoaded(object? sender, EventArgs e)
+        {
+            AttachKeyboardHandler();
+        }
+
+        private void AttachKeyboardHandler()
+        {
+            try
+            {
+                var window = Application.Current?.Windows[0]?.Handler?.PlatformView as Microsoft.UI.Xaml.Window;
+                if (window != null)
+                {
+                    window.Content.KeyDown -= OnWindowKeyDown;
+                    window.Content.KeyDown += OnWindowKeyDown;
+                }
+            }
+            catch { /* Ignore errors */ }
+        }
+
+        private void DetachKeyboardHandler()
+        {
+            try
+            {
+                var window = Application.Current?.Windows[0]?.Handler?.PlatformView as Microsoft.UI.Xaml.Window;
+                if (window != null)
+                {
+                    window.Content.KeyDown -= OnWindowKeyDown;
+                }
+            }
+            catch { /* Ignore errors */ }
+        }
+
+        private void OnWindowKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            HandleKeyPress(e);
+        }
+
+        private void HandleKeyPress(Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                Navigation.PopAsync();
+                e.Handled = true;
+            }
+        }
+#endif
 
         private void LoadSettings()
         {

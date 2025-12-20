@@ -173,6 +173,10 @@ namespace Inntinnsic.Views
                 if (_settings != null && !_settings.FlaggedCategories.Contains(detection.Category))
                     continue;
 
+                // Apply detection sensitivity threshold
+                if (_settings != null && detection.Confidence < _settings.DetectionSensitivity)
+                    continue;
+
                 // Get bounding box coordinates (in model input pixels - 320x320)
                 // YOLO format: (centerX, centerY, width, height)
                 float modelCenterX = detection.BoundingBox[0];

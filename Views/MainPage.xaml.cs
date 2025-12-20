@@ -33,6 +33,39 @@ namespace Inntinnsic.Views
             UpdateFolderList();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Refresh flagged count based on current settings when returning to page
+            // (e.g., after changing settings or deleting/ignoring images)
+            if (_lastScanResults.Count > 0)
+            {
+                var settings = UserSettings.Load();
+                var flaggedCount = _lastScanResults.Count(r =>
+                    r.Detections.Any(d =>
+                        !Config.SilentlyDisabledCategories.Contains(d.Category) &&
+                        settings.FlaggedCategories.Contains(d.Category) &&
+                        d.Confidence >= settings.DetectionSensitivity));
+
+                FlaggedCountLabel.Text = flaggedCount.ToString();
+
+                // Update View Results button state
+                if (flaggedCount > 0)
+                {
+                    ViewResultsButton.IsEnabled = true;
+                    ViewResultsButton.BackgroundColor = Color.FromArgb("#3B82F6");
+                    ViewResultsButton.TextColor = Colors.White;
+                }
+                else
+                {
+                    ViewResultsButton.IsEnabled = false;
+                    ViewResultsButton.BackgroundColor = Color.FromArgb("#1E293B");
+                    ViewResultsButton.TextColor = Color.FromArgb("#6B7280");
+                }
+            }
+        }
+
         private async Task<bool> EnsureModelLoadedAsync()
         {
             // If detector already loaded, we're good
@@ -305,7 +338,13 @@ namespace Inntinnsic.Views
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
                             ScannedCountLabel.Text = progress.CurrentIndex.ToString();
-                            FlaggedCountLabel.Text = progress.FlaggedCount.ToString();
+
+                            // Don't update FlaggedCountLabel on last image - let post-scan code handle it
+                            // with the correct filtered count
+                            if (!isLastImage)
+                            {
+                                FlaggedCountLabel.Text = progress.FlaggedCount.ToString();
+                            }
 
                             var fileName = System.IO.Path.GetFileName(progress.CurrentFile);
                             StatusMessageLabel.Text = $"Analyzing: {fileName} ({progress.CurrentIndex}/{progress.TotalFiles})";
@@ -320,8 +359,17 @@ namespace Inntinnsic.Views
                     analysisProgress,
                     _cancellationTokenSource.Token);
 
-                // Count flagged results
-                var flaggedCount = results.Count(r => r.IsFlagged);
+                // Count flagged results based on current user settings
+                // Filter ALL results based on current settings (ignore scan-time IsFlagged)
+                var settings = UserSettings.Load();
+                var flaggedCount = results.Count(r =>
+                    r.Detections.Any(d =>
+                        !Config.SilentlyDisabledCategories.Contains(d.Category) &&
+                        settings.FlaggedCategories.Contains(d.Category) &&
+                        d.Confidence >= settings.DetectionSensitivity));
+
+                // Update flagged count label with final filtered count
+                FlaggedCountLabel.Text = flaggedCount.ToString();
 
                 // Store results and enable View Results button if flagged items exist
                 _lastScanResults = results;

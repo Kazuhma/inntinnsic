@@ -11,10 +11,10 @@
         <Grid ColumnDefinitions="*, *" ColumnSpacing="20" Padding="20">
 
             <!-- Left Column: Results List -->
-            <ScrollView Grid.Column="0">
+            <ScrollView x:Name="ResultsScrollView" Grid.Column="0">
                 <VerticalStackLayout Spacing="15">
                     <!-- Header -->
-                    <Label Text="📋 Scan Results"
+                    <Label Text="Scan Results"
                            FontSize="28"
                            FontAttributes="Bold"
                            HorizontalOptions="Start"
