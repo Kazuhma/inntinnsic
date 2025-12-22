@@ -92,7 +92,7 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="8"/>
                                 </Border.StrokeShape>
-                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="3">
                                     <CheckBox x:Name="FemaleBreastExposedCheck"
                                               Grid.Column="0"
                                               IsChecked="True"

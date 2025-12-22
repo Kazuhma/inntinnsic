@@ -168,18 +168,37 @@ namespace Inntinnsic.Views
                     }
                 };
 
-                // Filename
+                // Filename and path stack
                 var filename = System.IO.Path.GetFileName(result.FilePath);
+                var directory = System.IO.Path.GetDirectoryName(result.FilePath);
+
+                var fileInfoStack = new VerticalStackLayout
+                {
+                    Spacing = 0,
+                    VerticalOptions = LayoutOptions.Center
+                };
+
                 var filenameLabel = new Label
                 {
                     Text = filename,
                     FontSize = 13,
                     FontAttributes = FontAttributes.Bold,
                     TextColor = Colors.White,
-                    VerticalOptions = LayoutOptions.Center,
                     LineBreakMode = LineBreakMode.MiddleTruncation
                 };
-                grid.Add(filenameLabel, 0, 0);
+                fileInfoStack.Add(filenameLabel);
+
+                var pathLabel = new Label
+                {
+                    Text = directory,
+                    FontSize = 10,
+                    TextColor = Color.FromArgb("#64748B"),
+                    LineBreakMode = LineBreakMode.MiddleTruncation,
+                    Margin = new Thickness(0, 1, 0, 0)
+                };
+                fileInfoStack.Add(pathLabel);
+
+                grid.Add(fileInfoStack, 0, 0);
 
                 // Score pill - show highest confidence among enabled categories above threshold
                 var qualifyingDetections = result.Detections
@@ -289,10 +308,14 @@ namespace Inntinnsic.Views
                     var isSelected = false;
                     if (border.Content is Grid grid && grid.Children.Count > 0)
                     {
-                        if (grid.Children[0] is Label label)
+                        // The first child is now a VerticalStackLayout containing filename and path labels
+                        if (grid.Children[0] is VerticalStackLayout stack && stack.Children.Count > 0)
                         {
-                            var filename = System.IO.Path.GetFileName(_selectedResultFilePath ?? "");
-                            isSelected = label.Text == filename;
+                            if (stack.Children[0] is Label filenameLabel)
+                            {
+                                var filename = System.IO.Path.GetFileName(_selectedResultFilePath ?? "");
+                                isSelected = filenameLabel.Text == filename;
+                            }
                         }
                     }
 

@@ -13,13 +13,6 @@
             <!-- Left Column: Results List -->
             <ScrollView x:Name="ResultsScrollView" Grid.Column="0">
                 <VerticalStackLayout Spacing="15">
-                    <!-- Header -->
-                    <Label Text="Scan Results"
-                           FontSize="28"
-                           FontAttributes="Bold"
-                           HorizontalOptions="Start"
-                           Margin="0,0,0,5"/>
-
                     <!-- Results Summary -->
                     <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
                             Padding="15"
@@ -76,6 +69,7 @@
                                     HeightRequest="36"
                                     CornerRadius="6"
                                     IsVisible="False"
+                                    ToolTipProperties.Text="Open folder"
                                     Clicked="OnPreviewOpenFolderClicked"/>
                             <Button x:Name="PreviewDeleteButton"
                                     Text="🗑️"
@@ -86,6 +80,7 @@
                                     HeightRequest="36"
                                     CornerRadius="6"
                                     IsVisible="False"
+                                    ToolTipProperties.Text="Delete file"
                                     Clicked="OnPreviewDeleteClicked"/>
                             <Button x:Name="PreviewIgnoreButton"
                                     Text="✕"
@@ -96,6 +91,7 @@
                                     HeightRequest="36"
                                     CornerRadius="6"
                                     IsVisible="False"
+                                    ToolTipProperties.Text="Ignore result"
                                     Clicked="OnPreviewIgnoreClicked"/>
                         </HorizontalStackLayout>
                     </Grid>
