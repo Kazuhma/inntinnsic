@@ -471,7 +471,7 @@ namespace Inntinnsic.Views
                 {
                     Text = "✕",
                     FontSize = 14,
-                    WidthRequest = 32,
+                    WidthRequest = 42,
                     HeightRequest = 32,
                     CornerRadius = 4,
                     BackgroundColor = Colors.Transparent,
