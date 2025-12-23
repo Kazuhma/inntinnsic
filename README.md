@@ -62,13 +62,14 @@ Inntinnsic enables:
 
 ## Screenshots
 
-![Main Interface](docs/screenshots/main-page.jpg)
+
+![Main Interface](Docs/screenshots/main-page.jpg)
 *Main scanning interface with Quick Scan and custom folder selection*
 
-![Results View](docs/screenshots/results-page.jpg)
+![Results View](Docs/screenshots/results-page.jpg)
 *Review flagged images with confidence scores and action buttons*
 
-![Settings](docs/screenshots/settings-page.jpg)
+![Settings](Docs/screenshots/settings-page.jpg)
 *Configure detection sensitivity and categories*
 
 ---
