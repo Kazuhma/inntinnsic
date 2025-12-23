@@ -18,7 +18,7 @@ It is designed for creators, researchers, and families who need visibility into 
 - 🖥️ **Fully Local Processing**  
   All image analysis runs on your computer. Nothing is uploaded or shared, no data collection.
 - 🧠 **AI-Powered Detection**  
-  Uses a trained image classification model to identify exposed anatomy, potentially inappropriate content and other configurable content categories.
+  Uses a trained image classification model to identify exposed anatomy, sensitive content and other configurable content categories.
 - 🎛️ **Configurable Sensitivity & Categories**  
   Adjust detection thresholds and choose exactly which content types should be flagged.
 - 🖼️ **Visual Results & Confidence Scores**  
@@ -62,14 +62,13 @@ Inntinnsic enables:
 
 ## Screenshots
 
-
-![Main Interface](Docs/screenshots/main-page.jpg)
+![Main Interface](Docs/screenshots/main-page.png)
 *Main scanning interface with Quick Scan and custom folder selection*
 
-![Results View](Docs/screenshots/results-page.jpg)
+![Results View](Docs/screenshots/results-page.png)
 *Review flagged images with confidence scores and action buttons*
 
-![Settings](Docs/screenshots/settings-page.jpg)
+![Settings](Docs/screenshots/settings-page.png)
 *Configure detection sensitivity and categories*
 
 ---

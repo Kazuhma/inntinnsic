@@ -25,10 +25,10 @@
                         <Label Text="🛡️"
                                FontSize="40"/>
                         <VerticalStackLayout VerticalOptions="Center">
-                            <Label Text="Image Safety Checker"
+                            <Label Text="Image Content Scanner"
                                    FontSize="28"
                                    FontAttributes="Bold"/>
-                            <Label Text="Scan your computer for potentially inappropriate images"
+                            <Label Text="Scan local folders for sensitive image content using AI"
                                    FontSize="14"
                                    TextColor="{StaticResource TextMuted}"/>
                         </VerticalStackLayout>
