@@ -4,7 +4,7 @@
 
 [![.NET Version](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://www.microsoft.com/windows)
-[![License](https://img.shields.io/badge/license-TBD-green)](LICENSE)
+[![License](https://img.shields.io/github/license/kazuhma/inntinnsic)](LICENSE)
 [![Version](https://img.shields.io/badge/version-3.0.0-brightgreen)](https://github.com/[organization]/inntinnsic/releases)
 
 Inntinnsic is a free, open-source desktop application that scans image files for sensitive or inappropriate content using AI—entirely offline.
@@ -247,7 +247,8 @@ A: Not. Current version uses CPU-only inference.
 
 ## License
 
-[License to be determined - suggest MIT or GPLv3]
+This project is licensed under the MIT License.  
+See the `LICENSE` file for details.
 
 This project uses the following third-party components:
 - **NudeNet Model:** [MIT License](https://github.com/vladmandic/nudenet)
