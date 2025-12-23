@@ -1,91 +1,155 @@
 # Inntinnsic
 
-**AI-Powered Image Safety Checker for Parental Control**
+**Privacy-first local AI image content scanning for Windows**
 
 [![.NET Version](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://www.microsoft.com/windows)
 [![License](https://img.shields.io/badge/license-TBD-green)](LICENSE)
 [![Version](https://img.shields.io/badge/version-3.0.0-brightgreen)](https://github.com/[organization]/inntinnsic/releases)
 
-Inntinnsic is a free, privacy-focused desktop application that helps parents protect their children from inappropriate content by scanning image files using AI-powered detection. All processing happens locally on your computer—no cloud uploads, no subscriptions, no data collection.
+Inntinnsic is a free, open-source desktop application that scans image files for sensitive or inappropriate content using AI—entirely offline.
+
+It is designed for creators, researchers, and families who need visibility into large or disorganized image collections without uploading data to the cloud. All processing happens locally on your machine. No accounts, no subscriptions, no telemetry.
 
 ---
 
 ## Features
 
-- **AI-Powered Detection:** Uses the NudeNet ONNX model to identify potentially inappropriate content with high accuracy
-- **100% Local Processing:** All scanning happens on your device—your images never leave your computer
-- **Privacy-First:** No telemetry, no cloud sync, no data collection
-- **Easy to Use:** Simple interface with Quick Scan and custom folder selection
-- **Configurable:** Adjust sensitivity levels and choose which categories to monitor
-- **Free and Open Source:** No subscriptions, no hidden costs
+- 🖥️ **Fully Local Processing**  
+  All image analysis runs on your computer. Nothing is uploaded or shared, no data collection.
+- 🧠 **AI-Powered Detection**  
+  Uses a trained image classification model to identify exposed anatomy, potentially inappropriate content and other configurable content categories.
+- 🎛️ **Configurable Sensitivity & Categories**  
+  Adjust detection thresholds and choose exactly which content types should be flagged.
+- 🖼️ **Visual Results & Confidence Scores**  
+  Review flagged images with previews, bounding boxes, and probability estimates.
+- 🔓 **Free & Open Source**  
+  No paywalls. No locked features. Community contributions welcome.
+
+---
+
+## 🎯 Common Use Cases
+
+### 🎨 AI Image Creators
+Generative AI tools often produce unintended NSFW content, especially across multiple UIs and output folders.
+
+Inntinnsic helps you:
+- Locate unintended nudity in large output batches
+- Audit images before publishing or sharing
+- Manage chaotic folder structures from tools like WebUI, ComfyUI, or custom pipelines
+
+---
+
+### 🧠 Dataset Curators & ML Researchers
+Maintaining clean and ethically sourced datasets is essential.
+
+Inntinnsic can be used to:
+- Audit image datasets before training or release
+- Flag potentially sensitive content automatically
+- Reduce manual review workload
+
+---
+
+### 👨‍👩‍👧 Families & Shared Computers
+For parents and households who want local content awareness tools without cloud services.
+
+Inntinnsic enables:
+- Offline scanning of image folders
+- Transparent, reviewable results
+- No monitoring, tracking, or remote reporting
 
 ---
 
 ## Screenshots
 
-![Main Interface](docs/screenshots/main-page.png)
+![Main Interface](docs/screenshots/main-page.jpg)
 *Main scanning interface with Quick Scan and custom folder selection*
 
-![Results View](docs/screenshots/results-page.png)
+![Results View](docs/screenshots/results-page.jpg)
 *Review flagged images with confidence scores and action buttons*
 
-![Settings](docs/screenshots/settings-page.png)
+![Settings](docs/screenshots/settings-page.jpg)
 *Configure detection sensitivity and categories*
 
 ---
 
-## Quick Start
+## ⚙️ How It Works
 
-### System Requirements
+1. Select one or more folders to scan
+2. Inntinnsic analyzes each image using a local AI model
+3. Images matching configured criteria are flagged
+4. Review results, preview images, and take action manually
 
-- **OS:** Windows 10 (Version 2004/build 19041) or Windows 11
-- **Processor:** 64-bit (x64) processor
-- **Memory:** 4 GB RAM (minimum), 8 GB recommended
-- **Disk Space:** 250 MB free space
-- **Internet:** Required for initial setup only (model download)
-
-### Installation
-
-1. **Download** the latest release from the [Releases page](https://github.com/[organization]/inntinnsic/releases)
-2. **Extract** the ZIP file to your desired location (e.g., `C:\Program Files\Inntinnsic`)
-3. **Run** `Inntinnsic.exe`
-4. **Download Model** when prompted (one-time, ~40 MB download)
-5. **Start Scanning!**
-
-No traditional installation required—Inntinnsic is portable and can run from any folder.
-
-### Usage
-
-**Quick Scan (Recommended for First-Time Users):**
-```
-1. Click "Quick Scan" button
-2. Click "Start Scan"
-3. Wait for scan to complete
-4. Click "View Results" to review flagged images
-```
-
-**Custom Folder Scan:**
-```
-1. Click "Add Folder" to select specific directories
-2. Add multiple folders as needed
-3. Click "Start Scan"
-4. Review results when complete
-```
-
-For detailed usage instructions, see the [User Documentation](Docs/user-documentation.md).
+The software does **not** delete or modify files automatically unless explicitly instructed.
 
 ---
 
-## How It Works
+## 🧩 Detection Categories
 
-Inntinnsic uses a three-phase approach to analyze images:
+Depending on your configuration, Inntinnsic can flag:
 
-1. **File Discovery:** Recursively scans selected folders for image files (JPEG, PNG, GIF, BMP, WebP, TIFF)
-2. **AI Analysis:** Each image is processed through the NudeNet ONNX model to detect potentially inappropriate content
-3. **Results Review:** Flagged images are presented with confidence scores for user review and action
+- Female breast exposure
+- Female genitalia exposure
+- Male genitalia exposure
+- Buttocks exposure
+- Anus exposure
+- (Additional categories may be added in future versions)
 
-**Privacy Note:** All processing happens locally using ONNX Runtime. Images are analyzed in memory and never uploaded anywhere.
+Each detection includes a confidence score to help guide review.
+
+---
+
+## 🧪 Model & Limitations
+
+Inntinnsic uses the **NudeNet** image classification model for content detection.
+
+Important notes:
+- Detection is probabilistic and may produce false positives or false negatives
+- Results should always be reviewed by a human
+- The software provides signals—not judgments or enforcement
+- Accuracy may vary based on image style, resolution, and context
+
+This tool is intended for **assistance and awareness**, not automated decision-making.
+
+---
+
+## 🔐 Privacy & Security
+
+- ✅ No internet connection required
+- ✅ No cloud uploads
+- ✅ No telemetry or analytics
+- ✅ No accounts or logins
+
+Your files never leave your computer.
+
+---
+
+## 🛠️ Development & Contributing
+
+Inntinnsic is an open-source project and contributions are welcome.
+
+You can help by:
+- Reporting bugs
+- Improving documentation
+- Suggesting features
+
+---
+
+## 📄 License
+
+This project is released under an open-source license.  
+See the `LICENSE` file for details.
+
+Third-party models and dependencies (including NudeNet) are subject to their respective licenses.
+
+---
+
+## ⚠️ Disclaimer
+
+Inntinnsic is provided as-is, without warranty of any kind.  
+The developers are not responsible for decisions made based on the software’s output.
+
+Always verify results manually.
 
 ---
 
@@ -144,53 +208,6 @@ For detailed development setup, see the [New Joiner Guide](Docs/new-joiner-guide
 
 ---
 
-## Contributing
-
-We welcome contributions! Here's how you can help:
-
-1. **Report Bugs:** Open an issue on GitHub with detailed reproduction steps
-2. **Suggest Features:** Share your ideas in GitHub Discussions
-3. **Submit Pull Requests:** Fix bugs or implement features
-4. **Improve Documentation:** Help make our docs clearer and more comprehensive
-5. **Spread the Word:** Tell other parents about Inntinnsic
-
-### Contribution Guidelines
-
-- Follow the [code standards](Docs/new-joiner-guide.md#code-standards) in the New Joiner Guide
-- Write clear commit messages using [Conventional Commits](https://www.conventionalcommits.org/)
-- Test your changes thoroughly before submitting
-- Update documentation as needed
-
-See the [New Joiner Guide](Docs/new-joiner-guide.md) for detailed development workflow.
-
----
-
-## Roadmap
-
-### Version 3.x (Current)
-- ✅ .NET MAUI desktop application
-- ✅ ONNX-based AI detection
-- ✅ Configurable sensitivity and categories
-- ✅ File management (delete, ignore)
-- ✅ Comprehensive documentation
-
-### Version 4.0 (Planned)
-- ⏳ GPU acceleration (DirectML/CUDA)
-- ⏳ Parallel image processing
-- ⏳ Export results to CSV/JSON
-- ⏳ Scheduled automated scans
-- ⏳ Real-time monitoring (file system watcher)
-
-### Future Considerations
-- 💡 Support for additional image formats
-- 💡 Video frame analysis
-- 💡 Plugin system for custom models
-- 💡 macOS and Linux support
-
-See [GitHub Issues](https://github.com/[organization]/inntinnsic/issues) for detailed feature requests and bugs.
-
----
-
 ## FAQ
 
 ### General
@@ -224,21 +241,7 @@ A: The NudeNet model is quite accurate, but not perfect. Expect some false posit
 A: Not currently, but plugin support for custom models is planned for a future version.
 
 **Q: Does it support GPU acceleration?**
-A: Not yet. Current version uses CPU-only inference. GPU support is planned for version 4.0.
-
-For more questions, see the [User Documentation FAQ](Docs/user-documentation.md#frequently-asked-questions).
-
----
-
-## Known Limitations
-
-- **Windows Only:** No macOS or Linux support currently
-- **CPU-Only Inference:** ~100-300ms per image (GPU support coming in v4.0)
-- **No Scan History:** Results not saved between sessions (privacy by design)
-- **No Video Analysis:** Images only, no video frame extraction
-- **Fixed Model:** Cannot swap ONNX models without code changes
-
-See [Technical Documentation](Docs/technical-documentation.md#known-limitations) for complete list.
+A: Not. Current version uses CPU-only inference.
 
 ---
 
@@ -278,14 +281,6 @@ This project uses the following third-party components:
 
 ---
 
-## Disclaimer
-
-Inntinnsic is a tool to assist with parental control, not a replacement for active parenting, education, and open communication. The AI model is not 100% accurate and may produce false positives or false negatives. Users are responsible for reviewing results and making informed decisions. The developers are not liable for how this software is used.
-
-**Legal Notice:** This software is intended for use by parents monitoring their own children's devices. Using this software to monitor adults without their explicit consent may violate privacy laws in your jurisdiction. Always use responsibly and legally.
-
----
-
 ## Project Status
 
 **Current Version:** 3.0.0 (Stable)
@@ -297,15 +292,5 @@ Inntinnsic is a tool to assist with parental control, not a replacement for acti
 [![Pull Requests](https://img.shields.io/github/issues-pr/[organization]/inntinnsic)](https://github.com/[organization]/inntinnsic/pulls)
 
 ---
-
-## Contact
-
-**Project Maintainer:** [Name/Email to be added]
-**GitHub:** [https://github.com/[organization]/inntinnsic](https://github.com/[organization]/inntinnsic)
-**Issues:** [https://github.com/[organization]/inntinnsic/issues](https://github.com/[organization]/inntinnsic/issues)
-
----
-
-**Made with ❤️ for families who want to keep their children safe online.**
 
 *Stay Safe. Stay Informed. Stay Connected.*
