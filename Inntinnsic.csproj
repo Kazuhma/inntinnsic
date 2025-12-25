@@ -24,7 +24,7 @@
         <ApplicationTitle>Inntinnsic</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.inntinnsic</ApplicationId>
+        <ApplicationId>com.inntinnsic.app</ApplicationId>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -43,12 +43,13 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="Transparent" />
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+        <MauiSplashScreen Include="Resources\appiconfg.svg" Color="#2563EB" BaseSize="128,128" />
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+        <MauiImage Update="Resources\Images\appiconfg.svg" BaseSize="40,40" />
         <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->

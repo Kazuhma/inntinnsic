@@ -22,8 +22,9 @@
                     </Border.StrokeShape>
 
                     <HorizontalStackLayout Spacing="15">
-                        <Label Text="🛡️"
-                               FontSize="40"/>
+                        <Image Source="appiconfg.png"
+                               WidthRequest="40"
+                               HeightRequest="40"/>
                         <VerticalStackLayout VerticalOptions="Center">
                             <Label Text="Image Content Scanner"
                                    FontSize="28"
