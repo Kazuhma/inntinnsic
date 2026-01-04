@@ -68,13 +68,30 @@
                     </Border.StrokeShape>
 
                     <VerticalStackLayout Spacing="12">
-                        <Label Text="Content to Flag"
-                               TextColor="White"
-                               FontSize="16"
-                               FontAttributes="Bold"/>
-                        <Label Text="Select which content types should trigger a flag"
-                               TextColor="#94A3B8"
-                               FontSize="13"/>
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                            <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                <Label Text="Content to Flag"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       FontAttributes="Bold"/>
+                                <Label Text="Select which content types should trigger a flag"
+                                       TextColor="#94A3B8"
+                                       FontSize="13"/>
+                            </VerticalStackLayout>
+
+                            <Label x:Name="BlurToggle"
+                                   Grid.Column="1"
+                                   Text="🔞"
+                                   TextColor="#E2E8F0"
+                                   FontSize="24"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Start"
+                                   ToolTipProperties.Text="Blur Content (Tap to toggle)">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBlurToggleTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
 
                         <!-- 3-column grid for checkboxes -->
                         <Grid ColumnDefinitions="*, *, *"

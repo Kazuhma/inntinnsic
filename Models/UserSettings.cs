@@ -24,6 +24,9 @@ namespace Inntinnsic.Models
         // Confirm before deleting files
         public bool ConfirmFileDeletions { get; set; } = true;
 
+        // Blur flagged content in image preview
+        public bool BlurFlaggedContent { get; set; } = true;
+
         /// <summary>
         /// Path to user settings file
         /// </summary>

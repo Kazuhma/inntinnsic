@@ -126,7 +126,21 @@ namespace Inntinnsic.Views
             if (_detections == null || _bitmap == null)
                 return;
 
-            // Create paint objects for drawing
+            // Model input size (from ImageDetector.cs)
+            const int ModelInputSize = 320;
+
+            // Calculate separate scale factors for X and Y axes
+            // (image is stretched to 320x320, not maintaining aspect ratio)
+            float modelToOriginalScaleX = _bitmap.Width / (float)ModelInputSize;
+            float modelToOriginalScaleY = _bitmap.Height / (float)ModelInputSize;
+
+            // Apply blur to detected regions if enabled
+            if (_settings != null && _settings.BlurFlaggedContent)
+            {
+                ApplyBlurToDetections(canvas, destRect, scale, modelToOriginalScaleX, modelToOriginalScaleY);
+            }
+
+            // Create paint objects for drawing bounding boxes
             using var boxPaint = new SKPaint
             {
                 Style = SKPaintStyle.Stroke,
@@ -151,14 +165,6 @@ namespace Inntinnsic.Views
                 Size = 14,
                 Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold)
             };
-
-            // Model input size (from ImageDetector.cs)
-            const int ModelInputSize = 320;
-
-            // Calculate separate scale factors for X and Y axes
-            // (image is stretched to 320x320, not maintaining aspect ratio)
-            float modelToOriginalScaleX = _bitmap.Width / (float)ModelInputSize;
-            float modelToOriginalScaleY = _bitmap.Height / (float)ModelInputSize;
 
             foreach (var detection in _detections)
             {
@@ -226,6 +232,77 @@ namespace Inntinnsic.Views
 
                 // Draw label text
                 canvas.DrawText(label, labelX + 6, labelY - 4, textFont, textPaint);
+            }
+        }
+
+        private void ApplyBlurToDetections(SKCanvas canvas, SKRect destRect, float scale, float modelToOriginalScaleX, float modelToOriginalScaleY)
+        {
+            if (_detections == null || _bitmap == null)
+                return;
+
+            // Create blur effect with radius of 25 pixels (similar to vladmandic's default)
+            const float BlurRadius = 25.0f;
+            using var blurFilter = SKImageFilter.CreateBlur(BlurRadius, BlurRadius);
+            using var blurPaint = new SKPaint
+            {
+                ImageFilter = blurFilter,
+                IsAntialias = true
+            };
+
+            foreach (var detection in _detections)
+            {
+                if (detection.BoundingBox == null || detection.BoundingBox.Length < 4)
+                    continue;
+
+                // Skip silently disabled categories
+                if (Config.SilentlyDisabledCategories.Contains(detection.Category))
+                    continue;
+
+                // Only blur enabled categories
+                if (_settings != null && !_settings.FlaggedCategories.Contains(detection.Category))
+                    continue;
+
+                // Apply detection sensitivity threshold
+                if (_settings != null && detection.Confidence < _settings.DetectionSensitivity)
+                    continue;
+
+                // Get bounding box coordinates (in model input pixels - 320x320)
+                // YOLO format: (centerX, centerY, width, height)
+                float modelCenterX = detection.BoundingBox[0];
+                float modelCenterY = detection.BoundingBox[1];
+                float modelWidth = detection.BoundingBox[2];
+                float modelHeight = detection.BoundingBox[3];
+
+                // Convert from center coordinates to top-left coordinates
+                float modelX = modelCenterX - (modelWidth / 2);
+                float modelY = modelCenterY - (modelHeight / 2);
+
+                // Convert from model coordinates to original image coordinates
+                float origX = modelX * modelToOriginalScaleX;
+                float origY = modelY * modelToOriginalScaleY;
+                float origWidth = modelWidth * modelToOriginalScaleX;
+                float origHeight = modelHeight * modelToOriginalScaleY;
+
+                // Scale bounding box to match displayed image size
+                float scaledX = destRect.Left + (origX * scale);
+                float scaledY = destRect.Top + (origY * scale);
+                float scaledWidth = origWidth * scale;
+                float scaledHeight = origHeight * scale;
+
+                // Create rectangle for the region to blur
+                var blurRect = new SKRect(scaledX, scaledY, scaledX + scaledWidth, scaledY + scaledHeight);
+
+                // Save the canvas state
+                canvas.Save();
+
+                // Clip to the region we want to blur
+                canvas.ClipRect(blurRect);
+
+                // Draw the entire image again with blur filter, but only the clipped region will be affected
+                canvas.DrawBitmap(_bitmap, destRect, blurPaint);
+
+                // Restore the canvas state
+                canvas.Restore();
             }
         }
     }

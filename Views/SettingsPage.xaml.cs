@@ -7,6 +7,7 @@ namespace Inntinnsic.Views
     public partial class SettingsPage : ContentPage
     {
         private UserSettings _settings = new UserSettings();
+        private bool _blurEnabled = true;
 
         public SettingsPage()
         {
@@ -106,11 +107,33 @@ namespace Inntinnsic.Views
             AutoExportCheck.IsChecked = _settings.AutoExportResults;
             SkipHiddenCheck.IsChecked = _settings.SkipHiddenFiles;
             ConfirmDeletionsCheck.IsChecked = _settings.ConfirmFileDeletions;
+            _blurEnabled = _settings.BlurFlaggedContent;
+            UpdateBlurToggleAppearance();
         }
 
         private void OnSensitivityChanged(object sender, ValueChangedEventArgs e)
         {
             SensitivityValueLabel.Text = $"Current: {e.NewValue:F2}";
+        }
+
+        private void OnBlurToggleTapped(object sender, EventArgs e)
+        {
+            _blurEnabled = !_blurEnabled;
+            UpdateBlurToggleAppearance();
+        }
+
+        private void UpdateBlurToggleAppearance()
+        {
+            if (_blurEnabled)
+            {
+                BlurToggle.TextColor = Color.FromArgb("#E2E8F0"); // Bright slate
+                BlurToggle.Opacity = 1.0;
+            }
+            else
+            {
+                BlurToggle.TextColor = Color.FromArgb("#64748B"); // Grey
+                BlurToggle.Opacity = 0.4;
+            }
         }
 
         private async void OnSaveClicked(object sender, EventArgs e)
@@ -140,6 +163,7 @@ namespace Inntinnsic.Views
                 _settings.AutoExportResults = AutoExportCheck.IsChecked;
                 _settings.SkipHiddenFiles = SkipHiddenCheck.IsChecked;
                 _settings.ConfirmFileDeletions = ConfirmDeletionsCheck.IsChecked;
+                _settings.BlurFlaggedContent = _blurEnabled;
 
                 // Save to file
                 _settings.Save();
@@ -171,6 +195,8 @@ namespace Inntinnsic.Views
             AutoExportCheck.IsChecked = _settings.AutoExportResults;
             SkipHiddenCheck.IsChecked = _settings.SkipHiddenFiles;
             ConfirmDeletionsCheck.IsChecked = _settings.ConfirmFileDeletions;
+            _blurEnabled = _settings.BlurFlaggedContent;
+            UpdateBlurToggleAppearance();
         }
     }
 }
