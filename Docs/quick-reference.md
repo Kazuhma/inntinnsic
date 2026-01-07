@@ -59,6 +59,12 @@ Quick reference guide for users and developers. Print this page for easy access!
 - Buttocks Exposed ✓
 - Belly Exposed (optional)
 
+**Content Blurring (🔞 Toggle):**
+- Tap icon to toggle blur on/off
+- Bright = Blur enabled (default)
+- Faded = Blur disabled
+- Blurs detected regions in image previews
+
 **Scan Options:**
 - Skip Hidden Files: ✓ (recommended)
 - Confirm File Deletions: ✓ (recommended for safety)
@@ -118,9 +124,9 @@ Quick reference guide for users and developers. Print this page for easy access!
 - AI: ONNX Runtime 1.23.2
 - Graphics: SkiaSharp 3.119.1
 
-**Version:** 3.0.0
-**Repo:** [GitHub URL]
-**License:** [To be determined]
+**Version:** 3.1.0
+**Repo:** https://github.com/Kazuhma/inntinnsic
+**License:** MIT
 
 ### Project Structure
 
@@ -579,6 +585,6 @@ Config.GetCommonLocations()                  // List<string>
 
 ---
 
-**Quick Reference Version:** 1.0
-**Last Updated:** December 2024
+**Quick Reference Version:** 1.1
+**Last Updated:** January 2025
 **Print-Friendly:** Yes (6 pages)

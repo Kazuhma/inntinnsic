@@ -267,6 +267,35 @@ Choose which types of content should trigger flagging:
 
 **Example Use Case:** If you only care about explicit genitalia exposure, uncheck "Buttocks Exposed" and "Belly Exposed" to reduce false positives.
 
+### Content Blurring (🔞)
+
+**What It Does:** Automatically blurs detected content regions in image previews
+
+**Location:** Next to the "Content to Flag" section title (right side)
+
+**Toggle States:**
+- **Bright Icon (🔞):** Blur is enabled - detected content will be blurred in previews
+- **Faded Icon (🔞):** Blur is disabled - detected content shown without blurring
+
+**Default:** Enabled (blur active)
+
+**How to Use:**
+1. Tap the 🔞 icon to toggle blur on/off
+2. The icon will brighten (enabled) or fade (disabled) to show current state
+3. Hover over the icon to see the tooltip: "Blur Content (Tap to toggle)"
+4. Click "Save Settings" to save your preference
+
+**Why Use It:**
+- Protects you from viewing explicit content while reviewing results
+- Makes it easier to share your screen or review images in public
+- Can be disabled if you need to examine details closely
+
+**Technical Details:**
+- Uses a 25-pixel Gaussian blur filter
+- Only blurs regions above your detection sensitivity threshold
+- Only blurs categories you've selected to flag
+- Bounding boxes and labels remain visible for context
+
 ### Scan Options
 
 **Auto Export Results:**

@@ -5,7 +5,7 @@
 [![.NET Version](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://www.microsoft.com/windows)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.0.0-brightgreen)](https://github.com/[organization]/inntinnsic/releases)
+[![Version](https://img.shields.io/github/v/release/Kazuhma/inntinnsic)](https://github.com/Kazuhma/inntinnsic/releases)
 
 Inntinnsic is a free, open-source desktop application that scans image files for sensitive or inappropriate content using AI—entirely offline.
 
@@ -15,15 +15,17 @@ It is designed for creators, researchers, and families who need visibility into 
 
 ## Features
 
-- 🖥️ **Fully Local Processing**  
+- 🖥️ **Fully Local Processing**
   All image analysis runs on your computer. Nothing is uploaded or shared, no data collection.
-- 🧠 **AI-Powered Detection**  
+- 🧠 **AI-Powered Detection**
   Uses a trained image classification model to identify exposed anatomy, sensitive content and other configurable content categories.
-- 🎛️ **Configurable Sensitivity & Categories**  
+- 🎛️ **Configurable Sensitivity & Categories**
   Adjust detection thresholds and choose exactly which content types should be flagged.
-- 🖼️ **Visual Results & Confidence Scores**  
+- 🔞 **Content Blurring**
+  Automatically blur detected content regions in image previews. Toggle on/off with a simple tap.
+- 🖼️ **Visual Results & Confidence Scores**
   Review flagged images with previews, bounding boxes, and probability estimates.
-- 🔓 **Free & Open Source**  
+- 🔓 **Free & Open Source**
   No paywalls. No locked features. Community contributions welcome.
 
 ---
@@ -191,7 +193,7 @@ Comprehensive documentation is available in the `/Docs` folder:
 
 ```bash
 # Clone the repository
-git clone https://github.com/[organization]/inntinnsic.git
+git clone https://github.com/Kazuhma/inntinnsic.git
 cd inntinnsic
 
 # Restore NuGet packages
@@ -271,26 +273,26 @@ This project uses the following third-party components:
 **Need Help?**
 - Check the [User Documentation](Docs/user-documentation.md)
 - Read the [Quick Reference](Docs/quick-reference.md)
-- Search [GitHub Issues](https://github.com/[organization]/inntinnsic/issues)
-- Ask in [GitHub Discussions](https://github.com/[organization]/inntinnsic/discussions)
+- Search [GitHub Issues](https://github.com/Kazuhma/inntinnsic/issues)
+- Ask in [GitHub Discussions](https://github.com/Kazuhma/inntinnsic/discussions)
 
 **Found a Bug?**
-- Open an [issue](https://github.com/[organization]/inntinnsic/issues/new) with detailed steps to reproduce
+- Open an [issue](https://github.com/Kazuhma/inntinnsic/issues/new) with detailed steps to reproduce
 
 **Want a Feature?**
-- Share your idea in [Discussions](https://github.com/[organization]/inntinnsic/discussions)
+- Share your idea in [Discussions](https://github.com/Kazuhma/inntinnsic/discussions)
 
 ---
 
 ## Project Status
 
-**Current Version:** 3.0.0 (Stable)
+**Current Version:** 3.1.0 (Stable)
 **Development Status:** Active
-**Last Updated:** December 2024
+**Last Updated:** January 2025
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/[organization]/inntinnsic)
-[![Issues](https://img.shields.io/github/issues/[organization]/inntinnsic)](https://github.com/[organization]/inntinnsic/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/[organization]/inntinnsic)](https://github.com/[organization]/inntinnsic/pulls)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/Kazuhma/inntinnsic)
+[![Issues](https://img.shields.io/github/issues/Kazuhma/inntinnsic)](https://github.com/Kazuhma/inntinnsic/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/Kazuhma/inntinnsic)](https://github.com/Kazuhma/inntinnsic/pulls)
 
 ---
 
