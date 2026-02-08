@@ -96,8 +96,8 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-# Release archives
-*.zip
+# Publish output (installers and archives)
+Publish/
 
 # Windows shortcuts
 *.lnk
